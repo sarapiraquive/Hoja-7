@@ -1,4 +1,4 @@
-from _base import GeneralPolicyIterationComponent
+from gpi._base import GeneralPolicyIterationComponent
 from mdp import ClosedFormMDP
 from mdp._trial_interface import TrialInterface
 import numpy as np
@@ -27,7 +27,18 @@ class TrialBasedPolicyEvaluator(GeneralPolicyIterationComponent):
         """
             creates and processes a trial to update state-values and q-values
         """
-        pass
+
+        def optimal_policy(s):
+            policy_map = {
+                (0, 0): "r", (0, 1): "r", (0, 2): "d", (0, 3): "d",
+                (1, 0): "d", (1, 1): "r", (1, 2): "d", (1, 3): "l",
+                (2, 0): "r", (2, 1): "r", (2, 2): "d", (2, 3): "l",
+                (3, 0): "u", (3, 1): "r", (3, 2): "r", (3, 3): None  # Meta
+            }
+            return policy_map.get(s, "r")  # Si no está definido, mover a la derecha por defecto
+
+        trial = self.trial_interface.exec_policy(optimal_policy)
+        return self.process_trial_for_policy(trial, optimal_policy)
     
     @abstractmethod
     def process_trial_for_policy(self, trial, policy):

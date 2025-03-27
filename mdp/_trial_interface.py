@@ -14,8 +14,7 @@ class TrialInterface:
         return self.mdp.init_states
 
     def draw_init_state(self):
-        s = self.init_states[self.rs.choice(range(len(self.init_states)))]
-        return s, self.mdp.get_reward(s)
+        return self.init_states[self.rs.choice(range(len(self.init_states)))]
 
     def get_random_state(self):
         if self.states is None:
