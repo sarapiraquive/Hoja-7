@@ -27,7 +27,7 @@ configs = [
     ("ADP No Exploring", adp.ADPPolicyEvaluation(trial_interface, gamma, exploring_starts=False, update_interval=10))
 ]
 
-num_iterations = 105
+num_iterations = 10^5
 errors = {name: [] for name, _ in configs}
 
 # 4. Ejecutar cada técnica por separado
