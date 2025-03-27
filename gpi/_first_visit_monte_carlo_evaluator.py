@@ -59,8 +59,6 @@ class FirstVisitMonteCarloEvaluator(TrialBasedPolicyEvaluator):
                 updated_v[state] += (G - updated_v[state]) / state_counts[state]
 
 
-        print("📌 Valores V actualizados:", updated_v)
-
         # Reemplazar los valores de estado en workspace
         self.workspace.replace_v(updated_v)
 
