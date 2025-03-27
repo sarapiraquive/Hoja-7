@@ -40,6 +40,7 @@ errors_adp = {'Exploring Starts': [], 'No Exploring Starts': []}
 
 for _ in range(num_iterations):
     gpi.step()
+    print(f"Iteración {_ + 1}, Valores MC Exploring:", gpi.components[0].workspace.v)
 
     # Variables para sumar errores en cada iteración
     error_mc_exploring_sum = 0

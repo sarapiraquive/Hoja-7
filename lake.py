@@ -1,6 +1,7 @@
 import numpy as np
 from mdp import MDP
 import itertools as it
+import random
 
 
 class LakeMDP(MDP):
@@ -188,12 +189,21 @@ class LakeMDP(MDP):
             out += "\n" + hline
         print(out)
 
-    def optimal_policy(self, s):
+    import random
 
+    def optimal_policy(self, s, epsilon=0.8):  # 80% de exploración
         policy_map = {
             (0, 0): "r", (0, 1): "r", (0, 2): "d", (0, 3): "d",
             (1, 0): "d", (1, 1): "r", (1, 2): "d", (1, 3): "l",
             (2, 0): "r", (2, 1): "r", (2, 2): "d", (2, 3): "l",
             (3, 0): "u", (3, 1): "r", (3, 2): "r", (3, 3): None  # Meta
         }
-        return policy_map.get(s, "r")  # Si no está definido, mover a la derecha por defecto
+
+        if s not in policy_map or policy_map[s] is None:
+            return None  # No hay acción si es estado terminal
+
+        # 80% de las veces toma una acción aleatoria
+        if random.uniform(0, 1) < epsilon:
+            return random.choice(self.actions)  # Exploración
+
+        return policy_map[s]  # Explotación
